@@ -112,3 +112,27 @@ genrule(
         "EOF",
     ]),
 )
+
+load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
+
+pybind_extension(
+    name = "ecal_wrap",
+    deps = [":ecal"],
+    srcs = ["lang/python/core/src/ecal_wrap.cxx"],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "ecal_py",
+    imports = [".", "lang/python/core"],
+    srcs = [
+        "lang/python/core/ecal/core/core.py",
+        "lang/python/core/ecal/core/publisher.py",
+        "lang/python/core/ecal/core/service.py",
+        "lang/python/core/ecal/core/subscriber.py",
+    ],
+    data = [":ecal_wrap.so"],
+
+    deps = ["@rules_python//python/runfiles"],
+    visibility = ["//visibility:public"],
+)
