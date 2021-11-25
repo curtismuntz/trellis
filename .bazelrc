@@ -7,3 +7,23 @@ test --test_output=errors
 
 # User-specific .bazelrc
 try-import user.bazelrc
+
+
+#build --workspace_status_command=tools/workspace_status.sh
+build --cxxopt=-std=c++17
+build --compiler=compiler
+
+build:amd64 --platforms=@local_config_platform//:host
+
+build:arm_crosstool --crosstool_top=@murtis_bazel_compilers//compilers/arm_compiler:toolchain
+build:arm_crosstool --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+build:arm_crosstool --spawn_strategy=standalone
+
+build:armv7hf --config=arm_crosstool
+build:armv7hf --cpu=armeabi-v7a --compiler=gcc
+
+build:aarch64 --config=arm_crosstool
+build:aarch64 --cpu=aarch64-linux-gnu --compiler=gcc
+
+# Alias the pi's architecture to match debian's `arch` output.
+build:armv7l --config=armv7hf

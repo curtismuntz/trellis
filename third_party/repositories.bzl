@@ -98,3 +98,37 @@ def trellis_deps():
             "https://github.com/google/protobuf/archive/436bd7880e458532901c58f4d9d1ea23fa7edd52.tar.gz",
         ],
     )
+
+    maybe(
+        http_archive,
+        name = "com_github_gabime_spdlog",
+        build_file = Label("//third_party:spdlog.BUILD"),
+        sha256 = "6fff9215f5cb81760be4cc16d033526d1080427d236e86d70bb02994f85e3d38",
+        strip_prefix = "spdlog-1.9.2",
+        urls = [
+            "https://github.com/gabime/spdlog/archive/v1.9.2.tar.gz",
+        ],
+    )
+
+    maybe(
+        http_archive,
+        name = "zlib",
+        build_file = Label("//third_party:zlib.BUILD"),
+        sha256 = "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
+        strip_prefix = "zlib-1.2.11",
+        urls = [
+            "https://mirror.bazel.build/zlib.net/zlib-1.2.11.tar.gz",
+            "https://zlib.net/zlib-1.2.11.tar.gz",
+        ],
+    )
+
+    maybe(
+        http_archive,
+        name = "hdf5",
+        sha256 = "6e47c0638a6c31083c018b8525a30ea7ffdac5a01075e4621a7b22464118948f",
+        build_file = Label("//third_party:hdf5.BUILD"),
+        strip_prefix = "hdf5-5b9cf732caab9daa6ed1e00f2df4f5a792340196",
+        urls = [
+            "https://github.com/HDFGroup/hdf5/archive/5b9cf732caab9daa6ed1e00f2df4f5a792340196.tar.gz",
+        ],
+    )
