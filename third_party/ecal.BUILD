@@ -81,6 +81,7 @@ cc_binary(
         "contrib/ecaltime/include",
     ],
     linkshared = True,
+    visibility = ["//visibility:public"],
 )
 
 proto_library(
@@ -270,11 +271,31 @@ cc_binary(
         "@tclap",
         ":ecal",
         ":ecal_cc_proto",
-        # "eCAL_core",
         ":eCAL_rec_client_core",
         ":eCAL_utils",
         ":EcalParser",
-        # "@fmt",
         "@hdf5//:hdf5",
     ],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "ecal_sys_client_core",
+    srcs = glob([
+        "app/sys/sys_client_core/src/**/*.cpp",
+                 "app/sys/sys_client_core/include/**/*.h"]
+                 ),
+    hdrs = glob([
+        "app/sys/sys_client_core/include/**/*.h"
+                 ]),
+    deps = [":ecal", ":EcalParser"],
+        includes = ["app/sys/sys_client_core/src", "app/sys/sys_client_core/include"],
+
+)
+
+cc_binary(
+    name = "ecal_sys_client_cli",
+    srcs = glob(["app/sys/sys_client_cli/**/*.cpp", "app/sys/sys_client_cli/**/*.h",]),
+    deps = [":ecal_sys_client_core"],
+    visibility = ["//visibility:public"],
 )

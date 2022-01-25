@@ -10,7 +10,7 @@ cc_library(
         "src/H5make_libsettings.c",
         "src/H5detect.c",
     ]) + [
-        "@//third_party/hdf5:generated_cc_files",
+        "@trellis//third_party/hdf5:generated_cc_files",
     ],
     hdrs = glob([
         "src/*.h",
@@ -24,6 +24,6 @@ cc_library(
     ],
     deps = [
         "@zlib//:zlib",
-        "@//third_party/hdf5:generated_h_files",
+        "@trellis//third_party/hdf5:generated_h_files",
     ],
 )
